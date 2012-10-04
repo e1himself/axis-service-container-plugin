@@ -1,0 +1,3 @@
+config/factories.yml:
+  class:    \Axis\S1\ServiceContainer\Config\FactoryConfigHandler
+  file:     %SF_PLUGINS_DIR%/AxisS1ServiceContainerPlugin/lib/Axis/S1/ServiceContainer/Config/FactoryConfigHandler.php
