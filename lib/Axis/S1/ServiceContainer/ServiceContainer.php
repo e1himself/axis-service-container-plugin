@@ -1,6 +1,6 @@
 <?php
 /**
- * @author io
+ * @author Ivan Voskoboynyk
  */
 
 namespace Axis\S1\ServiceContainer;
@@ -23,6 +23,10 @@ class ServiceContainer extends \Pimple
 
   function offsetGet($id)
   {
+    if ($id == 'mailer')
+    {
+      return $this['context']->getMailer();
+    }
     if (!parent::offsetExists($id) && isset($this->fallback[$id]))
     {
       return $this->fallback[$id];

@@ -1,0 +1,3 @@
+all:
+  service_container:
+    class: \Axis\S1\ServiceContainer\TaggedServiceContainer
