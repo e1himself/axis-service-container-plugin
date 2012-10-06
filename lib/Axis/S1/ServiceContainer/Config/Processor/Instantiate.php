@@ -11,6 +11,12 @@ use \Axis\S1\ServiceContainer\Definition\ServiceDefinition;
 class Instantiate extends BaseProcessor
 {
   /**
+   * Cache
+   * @var array
+   */
+  protected $parameterProcessors = array();
+
+  /**
    * @param $id string
    * @param $config array
    * @param $appliedDrivers array
@@ -24,13 +30,10 @@ class Instantiate extends BaseProcessor
 
       foreach ($this->options->get('parameter_processors', array()) as $parameterProcessor)
       {
-        /** @var $parameterProcessor \Axis\S1\ServiceContainer\ParameterProcessor\BaseParameterProcessor */
-        $parameterProcessor = new $parameterProcessor();
-        $parameterProcessor->process($serviceDefinition);
+        $this->getParameterProcessor($parameterProcessor)->process($serviceDefinition);
       }
 
       $initialization = "function(\$context) { return {$serviceDefinition->getDefinitionCode()}; }";
-
       $isShared = isset($config['shared']) ? $config['shared'] : true; // shared by default
 
       if ($isShared)
@@ -78,5 +81,19 @@ class Instantiate extends BaseProcessor
     }
 
     return $serviceDefinition;
+  }
+
+
+  /**
+   * @param $class
+   * @return \Axis\S1\ServiceContainer\ParameterProcessor\BaseParameterProcessor
+   */
+  protected function getParameterProcessor($class)
+  {
+    if (!isset($this->parameterProcessors[$class]))
+    {
+      $this->parameterProcessors[$class] = new $class();
+    }
+    return $this->parameterProcessors[$class];
   }
 }
