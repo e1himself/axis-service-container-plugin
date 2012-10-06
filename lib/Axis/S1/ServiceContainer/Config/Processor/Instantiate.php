@@ -29,7 +29,7 @@ class Instantiate extends BaseProcessor
         $parameterProcessor->process($serviceDefinition);
       }
 
-      $initialization = "function() use (\$context) { return {$serviceDefinition->getDefinitionCode()}; }";
+      $initialization = "function(\$context) { return {$serviceDefinition->getDefinitionCode()}; }";
 
       $isShared = isset($config['shared']) ? $config['shared'] : true; // shared by default
 
@@ -39,7 +39,7 @@ class Instantiate extends BaseProcessor
       }
       else
       {
-        $code = sprintf('$serviceContainer[%s] = %code;', $id, $initialization) . PHP_EOL;
+        $code = sprintf('$serviceContainer[%s] = %s;', var_export($id, true), $initialization) . PHP_EOL;
       }
 
       return

@@ -29,7 +29,7 @@ class TaggedServiceContainer extends ServiceContainer
     {
       foreach ($this->tags[$tag] as $serviceName)
       {
-        $services[] = parent::offsetGet($serviceName);
+        $services[$serviceName] = parent::offsetGet($serviceName);
       }
     }
 
