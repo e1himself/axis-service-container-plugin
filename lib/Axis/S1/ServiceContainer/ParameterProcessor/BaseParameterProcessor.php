@@ -8,6 +8,8 @@
 namespace Axis\S1\ServiceContainer\ParameterProcessor;
 
 use \Axis\S1\ServiceContainer\Definition\ServiceDefinition;
+use \Axis\S1\ServiceContainer\Definition\ArrayParameterDefinition;
+use \Axis\S1\ServiceContainer\Definition\ParameterDefinition;
 
 abstract class BaseParameterProcessor
 {
@@ -20,9 +22,14 @@ abstract class BaseParameterProcessor
   {
     foreach ($serviceDefinition->getParameters() as $parameter)
     {
-      /** @var $parameter \Axis\S1\ServiceContainer\Definition\ParameterDefinition */
-      if (!$parameter->isProcessed())
+      if ($parameter instanceof ArrayParameterDefinition && $parameter->isArray())
       {
+        /** $parameter ArrayParameterDefinition */
+        $parameter->walk(array($this, 'processArrayParameterPart'));
+      }
+      elseif (!$parameter->isProcessed())
+      {
+        /** @var $parameter ParameterDefinition */
         $this->processParameter($parameter);
       }
     }
@@ -34,4 +41,12 @@ abstract class BaseParameterProcessor
    * @return void
    */
   abstract protected function processParameter($parameter);
+
+  public function processArrayParameterPart($part)
+  {
+    if ($part instanceof ParameterDefinition && !$part->isProcessed())
+    {
+      $this->processParameter($part);
+    }
+  }
 }

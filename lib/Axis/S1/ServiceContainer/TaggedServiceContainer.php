@@ -11,6 +11,20 @@ class TaggedServiceContainer extends ServiceContainer
 {
   protected $tags = array();
 
+  /**
+   * @param string $id
+   * @param string $tag
+   * @return bool
+   */
+  public function hasTag($id, $tag)
+  {
+    return isset($this->tags[$tag]) && in_array($id, $this->tags[$tag]);
+  }
+
+  /**
+   * @param string $id
+   * @param string $tag
+   */
   public function addTag($id, $tag)
   {
     $this->tags[$tag][] = $id;
@@ -19,7 +33,7 @@ class TaggedServiceContainer extends ServiceContainer
 
   /**
    * @param $tag string
-   * @return array services
+   * @return array of defined objects
    */
   public function getByTag($tag)
   {

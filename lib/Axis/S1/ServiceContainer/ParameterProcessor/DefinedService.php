@@ -15,10 +15,18 @@ class DefinedService extends BaseParameterProcessor
    */
   public function processParameter($parameter)
   {
-    if ($parameter->isDefined() && is_string($parameter->getValue()) && substr($parameter->getValue(),0,10) == 'context://')
+    if ($parameter->isDefined() && is_string($parameter->getValue()))
     {
-      $service = substr($parameter->getValue(),10);
-      $parameter->setDefinitionCode(sprintf('$context[%s]', var_export($service, true)));
+      if (substr($parameter->getValue(),0,10) == 'context://')
+      {
+        $service = substr($parameter->getValue(),10);
+        $parameter->setDefinitionCode(sprintf('$context[%s]', var_export($service, true)));
+      }
+      elseif (substr($parameter->getValue(),0,1) == '@') // for Backward Compatibility with previous versions of plugin
+      {
+        $service = substr($parameter->getValue(),1);
+        $parameter->setDefinitionCode(sprintf('$context[%s]', var_export($service, true)));
+      }
     }
   }
 }

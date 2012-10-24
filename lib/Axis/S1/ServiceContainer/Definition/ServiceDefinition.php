@@ -70,7 +70,7 @@ class ServiceDefinition
       {
         /* @var $param \ReflectionParameter */
 
-        $parameterDefinition = new ParameterDefinition($param->getName());
+        $parameterDefinition = new ArrayParameterDefinition($param->getName());
         if ($param->isDefaultValueAvailable())
         {
           $parameterDefinition->setDefaultValue($param->getDefaultValue());
