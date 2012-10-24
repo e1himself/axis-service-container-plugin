@@ -18,27 +18,32 @@ class Tag extends BaseProcessor
    */
   public function apply($id, $config, $appliedDrivers)
   {
+    $tags = array();
     if (isset($config['tag']))
     {
-      $tags = array($config['tag']);
+      $tags = array_merge($tags, (array)$config['tag']);
     }
-    elseif (isset($config['tags']))
+    if (isset($config['tags']))
     {
-      $tags = (array)$config['tags'];
+      $tags = array_merge($tags, (array)$config['tags']);
     }
-    else
+
+    if (count($tags) == 0)
     {
       return false;
     }
 
     $code = '// added by ' . __CLASS__ . PHP_EOL;
-    foreach ($tags as $tag)
+    foreach (array_unique($tags) as $tag)
     {
-      $code .= sprintf(
-        "\$serviceContainer->addTag(%s, %s);\n",
-        var_export($id, true),
-        var_export($tag, true)
-      );
+      if (strlen($tag) > 0) // forbid empty tags
+      {
+        $code .= sprintf(
+          "\$serviceContainer->addTag(%s, %s);\n",
+          var_export($id, true),
+          var_export($tag, true)
+        );
+      }
     }
 
     return $code;
