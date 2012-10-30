@@ -1,12 +1,12 @@
 AxisServiceContainerPlugin
 ==========================
 
-Requirements
+Dependencies
 ------------
 
-This plugin requires `symfony/class-loader` component to be included in project.
+- requires `symfony/class-loader` component to be included in the project
 
-To retrieve dependencies just run `composer.phar install` in the plugin root directory.
+To retrieve other libraries dependencies just run `composer.phar install` in the plugin root directory.
 
 ### Additional options
 
@@ -15,6 +15,6 @@ To retrieve dependencies just run `composer.phar install` in the plugin root dir
 Allows to control when the factory should be initialized. The only supported value is `instant` - initialize instantly (on context creating).
 Everything else makes the factory to be called on the first request.
 
-#### `shared` option (defualt is `true`)
+#### `shared` option (default is `true`)
 
 Allows to control if the factory should be instantiated every time it is requested or the object is shared between all requests.

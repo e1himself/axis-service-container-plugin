@@ -10,6 +10,8 @@ config/factories.yml:
           parameter_processors:
             - \Axis\S1\ServiceContainer\ParameterProcessor\RawValue
             - \Axis\S1\ServiceContainer\ParameterProcessor\DefinedService
+            - \Axis\S1\ServiceContainer\ParameterProcessor\GetByTag
             - \Axis\S1\ServiceContainer\ParameterProcessor\sfConfigValue
 
       tag: \Axis\S1\ServiceContainer\Config\Processor\Tag
+      initialization: \Axis\S1\ServiceContainer\Config\Processor\Initialization
