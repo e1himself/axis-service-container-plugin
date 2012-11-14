@@ -18,7 +18,12 @@ class sfConfigValue implements ParameterProcessor
     if ($parameter->isDefined() && is_string($parameter->getValue()) && substr($parameter->getValue(),0,9) == 'config://')
     {
       $value = substr($parameter->getValue(),9);
-      $parameter->setDefinitionCode(sprintf('sfConfig::get(%s)', var_export($value, true)));
+      $default = null;
+      if (strpos($value, '|') !== FALSE)
+      {
+        list($value, $default) = explode('|', $value, 2);
+      }
+      $parameter->setDefinitionCode(sprintf('sfConfig::get(%s,%s)', var_export($value, true), var_export($default, true)));
     }
   }
 }
