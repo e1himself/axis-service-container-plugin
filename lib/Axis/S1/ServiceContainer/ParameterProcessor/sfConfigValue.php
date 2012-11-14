@@ -7,13 +7,13 @@
 
 namespace Axis\S1\ServiceContainer\ParameterProcessor;
 
-class sfConfigValue extends BaseParameterProcessor
+class sfConfigValue implements ParameterProcessor
 {
   /**
    * @param \Axis\S1\ServiceContainer\Definition\ParameterDefinition $parameter
    * @return void
    */
-  protected function processParameter($parameter)
+  public function process($parameter)
   {
     if ($parameter->isDefined() && is_string($parameter->getValue()) && substr($parameter->getValue(),0,9) == 'config://')
     {

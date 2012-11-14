@@ -7,13 +7,13 @@
 
 namespace Axis\S1\ServiceContainer\ParameterProcessor;
 
-class RawValue extends BaseParameterProcessor
+class RawValue implements ParameterProcessor
 {
   /**
    * @param \Axis\S1\ServiceContainer\Definition\ParameterDefinition $parameter
    * @return void
    */
-  protected function processParameter($parameter)
+  public function process($parameter)
   {
     if ($parameter->isDefined() && is_string($parameter->getValue()) && substr($parameter->getValue(),0,6) == 'raw://')
     {

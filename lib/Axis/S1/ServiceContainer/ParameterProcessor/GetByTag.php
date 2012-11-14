@@ -7,13 +7,13 @@
 
 namespace Axis\S1\ServiceContainer\ParameterProcessor;
 
-class GetByTag extends BaseParameterProcessor
+class GetByTag implements ParameterProcessor
 {
   /**
    * @param \Axis\S1\ServiceContainer\Definition\ParameterDefinition $parameter
    * @return void
    */
-  public function processParameter($parameter)
+  public function process($parameter)
   {
     if ($parameter->isDefined() && is_string($parameter->getValue()))
     {

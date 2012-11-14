@@ -7,6 +7,8 @@
 namespace Axis\S1\ServiceContainer\Config\Processor;
 
 use \Axis\S1\ServiceContainer\Definition\ServiceDefinition;
+use \Axis\S1\ServiceContainer\Definition\ArrayParameterDefinition;
+use \Axis\S1\ServiceContainer\Definition\ParameterDefinition;
 
 class Instantiate extends BaseProcessor
 {
@@ -28,9 +30,13 @@ class Instantiate extends BaseProcessor
     {
       $serviceDefinition = $this->createServiceDefinition($config);
 
-      foreach ($this->options->get('parameter_processors', array()) as $parameterProcessor)
+      foreach ($this->options->get('parameter_processors', array()) as $parameterProcessorId)
       {
-        $this->getParameterProcessor($parameterProcessor)->process($serviceDefinition);
+        $parameterProcessor = $this->getParameterProcessor($parameterProcessorId);
+        foreach ($serviceDefinition->getParameters() as $parameter)
+        {
+          $this->processServiceParameterDefinition($parameter, $parameterProcessor);
+        }
       }
 
       $initialization = "function(\$context) { return {$serviceDefinition->getDefinitionCode()}; }";
@@ -55,6 +61,7 @@ class Instantiate extends BaseProcessor
 
   /**
    * @param $config array
+   * @return \Axis\S1\ServiceContainer\Definition\ServiceDefinition
    */
   protected function createServiceDefinition($config)
   {
@@ -86,7 +93,7 @@ class Instantiate extends BaseProcessor
 
   /**
    * @param $class
-   * @return \Axis\S1\ServiceContainer\ParameterProcessor\BaseParameterProcessor
+   * @return \Axis\S1\ServiceContainer\ParameterProcessor\ParameterProcessor
    */
   protected function getParameterProcessor($class)
   {
@@ -95,5 +102,30 @@ class Instantiate extends BaseProcessor
       $this->parameterProcessors[$class] = new $class();
     }
     return $this->parameterProcessors[$class];
+  }
+
+  /**
+   * @param ParameterDefinition $parameter
+   * @param \Axis\S1\ServiceContainer\ParameterProcessor\ParameterProcessor $parameterProcessor
+   */
+  public function processServiceParameterDefinition($parameter, $parameterProcessor)
+  {
+    if ($parameter instanceof ArrayParameterDefinition && $parameter->isArray())
+    {
+      /** $parameter ArrayParameterDefinition */
+      $self = $this;
+      $parameter->walk(function($part) use ($self, $parameterProcessor) {
+        /** @var $self Instantiate */
+        if ($part instanceof ParameterDefinition && !$part->isProcessed())
+        {
+          $self->processServiceParameterDefinition($part, $parameterProcessor);
+        }
+      });
+    }
+    elseif (!$parameter->isProcessed())
+    {
+      /** @var $parameter ParameterDefinition */
+      $parameterProcessor->process($parameter);
+    }
   }
 }
