@@ -49,4 +49,27 @@ class TaggedServiceContainer extends ServiceContainer
 
     return $services;
   }
+
+  function offsetGet($id)
+  {
+    if (substr($id,0,1) == '#')
+    {
+      return $this->getByTag(substr($id,1));
+    }
+    return parent::offsetGet($id);
+  }
+
+  function offsetExists($id)
+  {
+    if (substr($id,0,1) == '#')
+    {
+      return true; // any tag is valid. even if there is no services we'll get an empty array
+    }
+    return parent::offsetExists($id);
+  }
+
+  public function offsetSet($id, $value)
+  {
+    parent::offsetSet($id, $value);
+  }
 }
