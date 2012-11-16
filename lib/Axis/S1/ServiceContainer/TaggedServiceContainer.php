@@ -50,6 +50,25 @@ class TaggedServiceContainer extends ServiceContainer
     return $services;
   }
 
+  /**
+   * @param $tag string
+   * @return array of defined objects keys
+   */
+  public function getKeysByTag($tag)
+  {
+    $services = array();
+
+    if (isset($this->tags[$tag]))
+    {
+      foreach ($this->tags[$tag] as $serviceName)
+      {
+        $services[$serviceName] = $serviceName;
+      }
+    }
+
+    return $services;
+  }
+
   function offsetGet($id)
   {
     if (substr($id,0,1) == '#')
