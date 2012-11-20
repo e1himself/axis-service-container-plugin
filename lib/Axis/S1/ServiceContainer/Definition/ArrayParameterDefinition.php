@@ -74,7 +74,7 @@ class ArrayParameterDefinition extends ParameterDefinition
     {
       if (is_array($value))
       {
-        $result[$key] = $this->_deepWalk($value, $callback);
+        $result[$key] = $this->_deepWalk($value, $callback, $reduce);
       }
       else
       {
