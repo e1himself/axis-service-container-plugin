@@ -92,7 +92,7 @@ $myService->doSomething(); // echoes "Hooray!"
 
 ### Instant initialization
 
-If your service should be instantiated (and thereby initialized) you can use `initialization` config parameter. The only value the plugin supports is `instant`. Any other value is treated as undefined and meaningless.
+If your service should be instantiated (and thereby initialized) on startup you can use `initialization` config parameter. The only value the plugin supports is `instant`. Any other value is treated as undefined and meaningless.
 
 ```
   my_service:
@@ -100,7 +100,7 @@ If your service should be instantiated (and thereby initialized) you can use `in
     initialization: instant
 ```
 
-By defining `initialization: instant` you telling that `my_service` should be instantiated just after the symfony context is created.
+By defining `initialization: instant` you tell that `my_service` should be instantiated just after the symfony context is created.
 
 ### Including file
 
