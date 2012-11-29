@@ -5,6 +5,18 @@ This plugin allows to add any amount of factories configuration to symfony facto
 
 Also it adds a rich functionality for instantiating and configuring factories.
 
+Installation
+------------
+
+### Composer way
+
+Just add `axis/axis-service-container-plugin` dependency to your `composer.json`:
+```
+  "require": {
+    "axis/axis-service-container-plugin": "dev-master"
+  }
+```
+
 Defining Services
 -----------------
 
