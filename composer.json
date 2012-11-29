@@ -3,6 +3,10 @@
   "description": "symfony 1.x plugin that improves factories.yml config handler using Pimple and advanced configuring features",
 
   "type": "symfony1-plugin",
+  "extra": {
+    "installer-name": "AxisServiceContainerPlugin"
+  },
+
   "keywords": ["symfony", "service container", "dependency injection", "factories", "pimple"],
   "license": "MIT",
   "homepage": "https://github.com/e1himself/axis-service-container-plugin",
