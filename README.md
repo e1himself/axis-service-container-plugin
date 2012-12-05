@@ -160,11 +160,11 @@ Also you can use default value for config getter:
   my_service:
     class: MyParamServiceImplementation
     parameters:
-      greating: config://app_my_service_greating|Wow! It support's default value!
+      greating: config://app_my_service_greating|Wow! It supports default value!
 
 ```
 
-This code will instantiate `my_service` passing `sfConfig::get('app_my_service_greating', "Wow! It support's default value!")` value as `$greating` parameter.
+This code will instantiate `my_service` passing `sfConfig::get('app_my_service_greating', "Wow! It supports default value!")` value as `$greating` parameter.
 
 ### Defined service
 Sometimes its handy to pass any other defined service to your service constructor as parameter.
