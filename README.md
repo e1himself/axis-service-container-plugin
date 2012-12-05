@@ -51,7 +51,7 @@ $myService->doSomething(); // echoes "Yep. It works!"
 ```
 
 ----------------------------------
-*Note*: all services are stored to [**Pimple**](http://pimple.sensiolabs.org/) service container using `share` method. This means that all services are [shared objects](http://pimple.sensiolabs.org/#defining-shared-objects) instantiated only once it was requested first time.
+*Note*: all services are stored to [**Pimple**](http://pimple.sensiolabs.org/) service container using `share` method. This means that each service is a [shared objects](http://pimple.sensiolabs.org/#defining-shared-objects) instantiated only once it was requested first time.
 
 ### Definition with parameters
 
