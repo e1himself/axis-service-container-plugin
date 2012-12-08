@@ -49,7 +49,8 @@ class FactoryConfigHandler extends \sfFactoryConfigHandler
         . "\$context = \$this;\n"
         . "\$serviceContainer['context'] = \$context;\n"
         . "\$serviceContainer['configuration'] = \$this->configuration;\n"
-        . "\$serviceContainer['service_container'] = \$serviceContainer;\n";
+        . "\$serviceContainer['service_container'] = \$serviceContainer;\n"
+        . "\$serviceContainer['dispatcher'] = \$this->dispatcher;\n";
   }
 
   protected function generateFactoriesInitializationCode(& $config)
