@@ -222,3 +222,27 @@ You can use any smart parameters processing in arrays passed as parameter values
         transport: context://my_service_transport
         name: config://app_my_service_name|MyService
 ```
+
+Standard services
+-----------------
+
+Service container has declared services at the very beginning. They include standard symfony factories and 
+core context entities:
+* `view_cache_manager`
+* `logger`
+* `i18n`
+* `controller`
+* `request`
+* `response`
+* `routing`
+* `storage`
+* `user`
+* `view_cache`
+* `mailer`
+
+Additionally plugin appends to the service container next services:
+* `context` - symfony context instance
+* `configuration` - current application configuration
+* `dispatcher` - symfony event dispatcher
+* `service_container` - the service container instance itself (useful for using service container public API 
+  inaccessible via sfContext instance)
