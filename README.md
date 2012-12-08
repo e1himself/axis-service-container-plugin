@@ -223,11 +223,14 @@ You can use any smart parameters processing in arrays passed as parameter values
         name: config://app_my_service_name|MyService
 ```
 
-Standard services
+Declared services
 -----------------
 
 Service container has declared services at the very beginning. They include standard symfony factories and 
-core context entities:
+core context entities.
+
+### Standard symfony services
+
 * `view_cache_manager`
 * `logger`
 * `i18n`
@@ -240,9 +243,16 @@ core context entities:
 * `view_cache`
 * `mailer`
 
+### Additional plugin services
+
 Additionally plugin appends to the service container next services:
 * `context` - symfony context instance
 * `configuration` - current application configuration
 * `dispatcher` - symfony event dispatcher
 * `service_container` - the service container instance itself (useful for using service container public API 
   inaccessible via sfContext instance)
+
+Known issues
+------------
+* You cannot configure [standard symfony services](#standard-symfony-services) using all plugin features. 
+  Standard services are handled by default symfony sfFactoriesConfigHandler.
