@@ -243,6 +243,8 @@ core context entities.
 * `view_cache`
 * `mailer`
 
+All of this services can be used as initialization parameter using context:// parameter processor.
+
 ### Additional plugin services
 
 Additionally plugin appends to the service container next services:
