@@ -7,7 +7,7 @@ namespace Axis\S1\ServiceContainer\Config\Handler;
 
 use Axis\S1\ServiceContainer\Config\ConfiguratorInterface;
 
-class FactoryConfigHandler extends \sfFactoryConfigHandler
+class BackwardCompatibleFactoryConfigHandler extends \sfFactoryConfigHandler
 {
   /**
    * @param array $configFiles
@@ -24,7 +24,7 @@ class FactoryConfigHandler extends \sfFactoryConfigHandler
     /** @var $configurator ConfiguratorInterface */
     $configurator = new $configuratorClass();
     $configurator->setConfiguration($config);
-    $configurator->setOptions($this->getParameterHolder()->getAll());
+    $configurator->setOptions($this->getParameterHolder()->get('configurator_options', array()));
 
     $class = __CLASS__;
     $code .= "// added by $class\n" . $configurator->execute();

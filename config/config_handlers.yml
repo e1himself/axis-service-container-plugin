@@ -1,17 +1,30 @@
 config/factories.yml:
   class:    \Axis\S1\ServiceContainer\Config\Handler\FactoryConfigHandler
-  file:     %SF_PLUGINS_DIR%/AxisServiceContainerPlugin/lib/Axis/S1/ServiceContainer/Config/Handler/FactoryConfigHandler.php
+  file:     %SF_PLUGINS_DIR%/AxisServiceContainerPlugin/lib/Axis/S1/ServiceContainer/Config/Handler/BackwardCompatibleFactoryConfigHandler.php
   param:
+    configurator_class: \Axis\S1\ServiceContainer\Config\BackwardCompatibleConfigurator
+    skip_factories:
+      view_cache_manager: true
+      logger: true
+      i18n: true
+      controller: true
+      request: true
+      response: true
+      routing: true
+      storage: true
+      user: true
+      view_cache: true
+      mailer: true
     processors:
       include_file: \Axis\S1\ServiceContainer\Config\Processor\IncludeFile
       instantiate:
-        class:  \Axis\S1\ServiceContainer\Config\Processor\Instantiate
+        class: \Axis\S1\ServiceContainer\Config\Processor\Instantiate
         options:
           parameter_processors:
-            - \Axis\S1\ServiceContainer\ParameterProcessor\RawValue
-            - \Axis\S1\ServiceContainer\ParameterProcessor\DefinedService
-            - \Axis\S1\ServiceContainer\ParameterProcessor\GetByTag
-            - \Axis\S1\ServiceContainer\ParameterProcessor\sfConfigValue
+            raw: \Axis\S1\ServiceContainer\ParameterProcessor\RawValue
+            context: \Axis\S1\ServiceContainer\ParameterProcessor\DefinedService
+            tag: \Axis\S1\ServiceContainer\ParameterProcessor\GetByTag
+            config: \Axis\S1\ServiceContainer\ParameterProcessor\sfConfigValue
 
       tag: \Axis\S1\ServiceContainer\Config\Processor\Tag
       initialization: \Axis\S1\ServiceContainer\Config\Processor\Initialization
