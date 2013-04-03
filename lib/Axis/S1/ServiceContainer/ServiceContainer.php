@@ -23,7 +23,7 @@ class ServiceContainer extends \Pimple
 
   function offsetGet($id)
   {
-    if ($id == 'mailer')
+    if ($id == 'mailer' && !parent::offsetExists($id))
     {
       return $this['context']->getMailer();
     }
