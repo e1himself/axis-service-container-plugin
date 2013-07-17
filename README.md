@@ -11,6 +11,7 @@ Installation
 ### Composer way
 
 1. Add `axis/axis-service-container-plugin` dependency to your `composer.json`:
+
 ```json
   "require": {
     "axis/axis-service-container-plugin": "dev-master"
