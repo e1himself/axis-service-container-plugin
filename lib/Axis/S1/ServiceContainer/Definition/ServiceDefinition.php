@@ -28,6 +28,7 @@ class ServiceDefinition
   /**
    * @param $class string
    * @param array $parameters of ParameterDefinition objects
+   * @param string $method
    */
   public function __construct($class, $parameters = array(), $method = '__construct')
   {
@@ -38,16 +39,15 @@ class ServiceDefinition
 
   /**
    * @param $class
+   * @param string $method
+   *
+   * @throws \Exception|\ReflectionException
+   * @throws \InvalidArgumentException
+   *
    * @return ServiceDefinition
    */
   public static function fromReflection($class, $method = '__construct')
   {
-    // force global namespace
-    if ($class[0] != '\\')
-    {
-      $class = '\\'.$class;
-    }
-
     // $serviceDefinition = new static($class);
     $serviceDefinitionParameters = array();
 
