@@ -71,7 +71,7 @@ class TaggedServiceContainer extends ServiceContainer
 
   function offsetGet($id)
   {
-    if (substr($id,0,1) == '#')
+    if ($id[0] == '#')
     {
       return $this->getByTag(substr($id,1));
     }
@@ -80,7 +80,7 @@ class TaggedServiceContainer extends ServiceContainer
 
   function offsetExists($id)
   {
-    if (substr($id,0,1) == '#')
+    if ($id[0] == '#')
     {
       return true; // any tag is valid. even if there is no services we'll get an empty array
     }
