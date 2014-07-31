@@ -1,6 +1,6 @@
 config/factories.yml:
   class:    \Axis\S1\ServiceContainer\Config\Handler\FactoryConfigHandler
-  file:     %SF_PLUGINS_DIR%/AxisServiceContainerPlugin/lib/Axis/S1/ServiceContainer/Config/Handler/BackwardCompatibleFactoryConfigHandler.php
+  file:     %SF_PLUGINS_DIR%/AxisServiceContainerPlugin/lib/Axis/S1/ServiceContainer/Config/Handler/FactoryConfigHandler.php
   param:
     configurator_class: \Axis\S1\ServiceContainer\Config\BackwardCompatibleConfigurator
     skip_factories:

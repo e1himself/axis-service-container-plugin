@@ -258,10 +258,18 @@ Additionally plugin appends to the service container next services:
 * `context` - symfony context instance
 * `configuration` - current application configuration
 * `dispatcher` - symfony event dispatcher
+* `config_cache` - symfony config cache manager. Useful when your service relies on .yml files caching
 * `service_container` - the service container instance itself (useful for using service container public API 
   inaccessible via sfContext instance)
 
 Known issues
 ------------
 * You cannot configure [standard symfony services](#standard-symfony-services) using all plugin features. 
-  Standard services are handled by default symfony sfFactoriesConfigHandler.
+  Standard services are handled by default symfony `sfFactoryConfigHandler`.
+
+What's new
+----------
+
+1.1   - Output Service container generated config cache code *before* `sfFactoryConfigHandler` code.
+      - Added `config_cache` to predefined services
+1.0.0 - First stable release

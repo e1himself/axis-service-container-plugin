@@ -27,7 +27,13 @@ class FactoryConfigHandler extends \sfFactoryConfigHandler
     $configurator->setOptions($this->getParameterHolder()->getAll());
 
     $class = __CLASS__;
-    $code .= "// added by $class\n" . $configurator->execute();
+    // prepend ServiceContainer generated code before usual sfFactoryConfigHandler output
+    $code = "<?php\n"
+    . "// added by $class\n" . $configurator->execute() . "\n"
+    . '?>' . $code;
+
+    // Eliminate unneeded CLOSING/OPENING (the most reliable way to hack into parent generated code)
+    $code = str_replace('?><?php', '', $code);
 
     return $code;
   }

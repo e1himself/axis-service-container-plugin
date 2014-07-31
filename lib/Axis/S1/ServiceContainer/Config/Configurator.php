@@ -47,6 +47,7 @@ class Configurator extends BaseConfigurator
          . "\$context = \$this;\n"
          . "\$serviceContainer['context'] = \$context;\n"
          . "\$serviceContainer['configuration'] = \$this->configuration;\n"
+         . "\$serviceContainer['config_cache'] = \$this->configuration->getConfigCache();\n"
          . "\$serviceContainer['service_container'] = \$serviceContainer;\n"
          . "\$serviceContainer['dispatcher'] = \$this->dispatcher;\n";
   }
